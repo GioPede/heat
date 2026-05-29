@@ -50,10 +50,10 @@ def _subspaceiteration(
         matrix sign function in two iterations: The power of Zolotarev's functions. SIAM Review, 58(3).
     """
     # set parameters for convergence
-    if A.dtype == types.float64 or A.dtype == types.complex128:
+    if A.dtype in [types.float64, types.complex128]:
         maxit = 3 if maxit is None else maxit
         tol = 1e-8 if tol is None else tol
-    elif A.dtype == types.float32 or A.dtype == types.complex64:
+    elif A.dtype in [types.float32, types.complex64]:
         maxit = 6 if maxit is None else maxit
         tol = 1e-4 if tol is None else tol
     else:
@@ -301,6 +301,7 @@ def eigh(
     :func:`heat.linalg.polar`
     """
     sanitize_in(A)
+
     if A.ndim != 2:
         raise ValueError(f"Input matrix must be two-dimensional, but input shape was {A.shape}.")
     if A.shape[0] != A.shape[1]:
